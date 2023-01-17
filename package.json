@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-template",
+  "name": "goit-react-hw-02-feedback",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/goitacademy/react-homework-template",
+  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-02-feedback/",
   "dependencies": {
     "modern-normalize": "^1.1.0",
     "prop-types": "^15.8.1",
