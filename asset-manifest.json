@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/goitacademy/react-homework-template/static/css/main.7acaea2f.css",
+    "main.css": "/goitacademy/react-homework-template/static/css/main.e525495b.css",
     "main.js": "/goitacademy/react-homework-template/static/js/main.07d3183d.js",
     "index.html": "/goitacademy/react-homework-template/index.html",
-    "main.7acaea2f.css.map": "/goitacademy/react-homework-template/static/css/main.7acaea2f.css.map",
+    "main.e525495b.css.map": "/goitacademy/react-homework-template/static/css/main.e525495b.css.map",
     "main.07d3183d.js.map": "/goitacademy/react-homework-template/static/js/main.07d3183d.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
+    "static/css/main.e525495b.css",
     "static/js/main.07d3183d.js"
   ]
 }
