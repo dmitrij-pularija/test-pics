@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-02-feedback",
+  "name": "goit-react-hw-02-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-02-feedback/",
+  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-02-phonebook/",
   "dependencies": {
     "modern-normalize": "^1.1.0",
     "prop-types": "^15.8.1",
