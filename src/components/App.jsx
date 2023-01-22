@@ -1,48 +1,118 @@
 import { Component } from 'react';
-import Section from './Section/Section';
-import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
-import Statistics from './Statistics/Statistics';
+import book from '../img/book.svg';
+import Filter from './Filter/Filter';
+import Container from './Container/Container';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
 import Notification from './Notification/Notification';
+import { Box, List, Icon, Title, Blue } from './App.styled';
 
 class App extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+    contactRow: { id: '', name: '', number: '' },
   };
 
-  handleClick = (event) => {
-      const key = event.target.name;
-      this.setState(prevFfeedback => {return {[key]: prevFfeedback[key] += 1}});
+  setFilter = newFilter => {
+    this.setState({ filter: newFilter });
   };
 
-  countTotalFeedback = () => {
-		const { good, neutral, bad } = this.state;
-		return good + neutral + bad;
-  };  
+  addContact = ({ id, name, number }) => {
+    const newContact = { id, name, number };
+    this.setState(({ contacts }) => ({
+      contacts: [newContact, ...contacts],
+    }));
+  };
 
-  countPositiveFeedbackPercentage = () => {
-    return Math.round((this.state.good * 100) / this.countTotalFeedback());
-  };  
+  delContact = id => {
+    const newContacts = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+    this.setState(prevState => {
+      return { ...prevState, contacts: [...newContacts] };
+    });
+  };
+
+  editContact = ({ id, name, number }) => {
+    const newContacts = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+    const newContact = { id, name, number };
+    this.setState(() => ({
+      contacts: [newContact, ...newContacts],
+    }));
+    this.setState({ contactRow: { id: '', name: '', number: '' } });
+  };
+
+  selectContact = id => {
+    const editDetals = this.state.contacts.find(contact => contact.id === id);
+    this.setState({ contactRow: editDetals });
+  };
+
+  filterContacts = () => {
+    let contactFiltred = [];
+    if (this.state.filter) {
+      contactFiltred = this.state.contacts.filter(
+        contact =>
+          contact.name
+            .toUpperCase()
+            .includes(this.state.filter.toUpperCase()) ||
+          contact.number.includes(this.state.filter)
+      );
+      return contactFiltred;
+    } else {
+      return this.state.contacts.sort((firstСontacts, secondСontacts) =>
+        firstСontacts.name.localeCompare(secondСontacts.name)
+      );
+    }
+  };
 
   render() {
-		const { good, neutral, bad } = this.state;
-		const feedbacks = Object.keys(this.state);
-    const total = this.countTotalFeedback();
-    const positivePercentage = this.countPositiveFeedbackPercentage();
+    const contactFiltred = this.filterContacts();
+
     return (
-      <>
-        <Section title={'Please leave feedback'}>
-        <FeedbackOptions feedbacks={feedbacks} handleClick={this.handleClick} />
-        </Section>
-        <Section title={'Statistics'}>
-        {total > 0 ?  
-        <Statistics good={good} neutral={neutral} bad={bad} total={total} positivePercentage={positivePercentage} />
-        :
-        <Notification message="There is no feedback" />
-        }
-        </Section>
-      </>
+      <Container>
+        <Title>
+          <Icon src={book} width="20px" />
+          Phone<Blue>book</Blue>
+        </Title>
+        <Box>
+          <List>
+            <Filter onFilterChange={this.setFilter} />
+            {contactFiltred.length > 0 ? (
+              <ContactList
+                contacts={contactFiltred}
+                onDelete={this.delContact}
+                onEdit={this.selectContact}
+              />
+            ) : (
+              <Notification message="contacts not found" />
+            )}
+          </List>
+
+          {!this.state.contactRow.id ? (
+            <ContactForm
+              formSubmit={this.addContact}
+              contacts={this.state.contacts}
+              buttonText={'Add contact'}
+              setEdit={this.state.contactRow}
+            />
+          ) : (
+            <ContactForm
+              formSubmit={this.editContact}
+              contacts={this.state.contacts}
+              buttonText={'Edit contact'}
+              setEdit={this.state.contactRow}
+            />
+          )}
+        </Box>
+      </Container>
     );
   }
 }

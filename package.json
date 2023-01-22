@@ -5,8 +5,9 @@
   "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-02-phonebook/",
   "dependencies": {
     "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.6",
     "prop-types": "^15.8.1",
-    "react": "^18.1.0",
+    "react": "^18.2.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
