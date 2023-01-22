@@ -33,7 +33,7 @@ class Filter extends Component {
           onChange={this.handleChange}
         />
         {this.state.filter && (
-          <Clear type="rutton" onClick={this.handleClick}>
+          <Clear type="rutton" onClick={this.handleClick} title="Сlick to clear filter">
             <Icon src={clear} width="10px" />
           </Clear>
         )}

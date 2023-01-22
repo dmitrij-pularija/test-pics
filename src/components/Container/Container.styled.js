@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 
 export const Cont = styled.div`
-  max-width: 630px;
+  width: 100%;
   margin: 0 auto;
   padding: 15px;
+
+  @media screen and (min-width: 480px) {
+    max-width: 630px;
+  }
 `;
 
 export const Card = styled.div`
   display: block;
-  // height: 465px;
   margin-top: 80px;
-  padding: 20px 20px 20px 0;
   border-radius: 10px;
-  background-color: #dddddd;
+  background-color: #f5f4fa;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 `;
@@ -23,6 +25,7 @@ export const Logo = styled.div`
   left: 0;
   top: 15px;
   justify-content: center;
+
   @media screen and (min-width: 768px) {
     justify-content: flex-start;
   }

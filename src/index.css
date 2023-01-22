@@ -39,12 +39,9 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
-  fill: #8f6934;
 }
 
-
 .container {
-  max-width: 530px;
   margin: 0 auto;
   padding: 0 15px;
 }

@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import del from '../../img/del.svg';
 import user from '../../img/user.svg';
-import { Item, Name, Number, Del, Icon, User } from './ContactList.styled';
+import { Item, Name, Number, Del, Icon, User, Select} from './ContactList.styled';
 
 const ContactListItem = ({ name, number, onDelete, onEdit, id }) => {
   return (
     <Item>
-      <User onClick={() => onEdit(id)}>
+      <Select onClick={() => onEdit(id)} title="Сlick to edit">
+      <User>
         <Icon src={user} width="12px" />
       </User>
       <Name>{name}</Name>
       <Number>{number}</Number>
-      <Del aria-label="Delete contact" onClick={() => onDelete(id)}>
+      </Select>
+      <Del aria-label="Delete contact" onClick={() => onDelete(id)}  title="Сlick to delete">
         <Icon src={del} width="11px" />
       </Del>
     </Item>
