@@ -1,4 +1,4 @@
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import avatar from '../../img/avatar.png';
@@ -120,10 +120,22 @@ class ContactForm extends Component {
   }
 
   static propTypes = {
-    formSubmit: propTypes.func.isRequired,
-    buttonText: propTypes.string.isRequired,
-    contacts: propTypes.arrayOf(propTypes.object).isRequired,
-    setEdit: propTypes.object.isRequired,
+    formSubmit: PropTypes.func.isRequired,
+    buttonText: PropTypes.string.isRequired,
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    setEdit: PropTypes.objectOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+      })
+    ),
   };
 }
 

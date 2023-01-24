@@ -9,13 +9,22 @@ import { Box, List, Icon, Title, Blue } from './App.styled';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
     contactRow: {},
   };
 
-  setFilter = newFilter => {
-    this.setState({ filter: newFilter });
+  setFilter = ({ target: { value } }) => {
+    this.setState({ filter: value });
+  };
+
+  clearFilter = () => {
+    this.setState({ filter: '' });
   };
 
   addContact = ({ id, name, number }) => {
@@ -29,20 +38,15 @@ class App extends Component {
     const newContacts = this.state.contacts.filter(
       contact => contact.id !== id
     );
-    this.setState(prevState => {
-      return { ...prevState, contacts: [...newContacts] };
-    });
+    this.setState(() => ({ contacts: [...newContacts] }));
   };
 
-  editContact = ({ id, name, number }) => {
+  editContact = newContact => {
     const newContacts = this.state.contacts.filter(
-      contact => contact.id !== id
+      contact => contact.id !== newContact.id
     );
-    const newContact = { id, name, number };
-    this.setState(() => ({
-      contacts: [newContact, ...newContacts],
-    }));
-    this.setState({ contactRow: { id: '', name: '', number: '' } });
+    this.setState(() => ({ contacts: [newContact, ...newContacts] }));
+    this.setState({ contactRow: {} });
   };
 
   selectContact = id => {
@@ -70,7 +74,6 @@ class App extends Component {
 
   render() {
     const contactFiltred = this.filterContacts();
-
     return (
       <Container>
         <Title>
@@ -79,7 +82,11 @@ class App extends Component {
         </Title>
         <Box>
           <List>
-            <Filter onFilterChange={this.setFilter} />
+            <Filter
+              value={this.state.filter}
+              onFilterChange={this.setFilter}
+              onFilterClear={this.clearFilter}
+            />
             {contactFiltred.length > 0 ? (
               <ContactList
                 contacts={contactFiltred}
@@ -90,22 +97,16 @@ class App extends Component {
               <Notification message="contacts not found" />
             )}
           </List>
-
-          {!this.state.contactRow.id ? (
-            <ContactForm
-              formSubmit={this.addContact}
-              contacts={this.state.contacts}
-              buttonText={'Add contact'}
-              setEdit={this.state.contactRow}
-            />
-          ) : (
-            <ContactForm
-              formSubmit={this.editContact}
-              contacts={this.state.contacts}
-              buttonText={'Edit contact'}
-              setEdit={this.state.contactRow}
-            />
-          )}
+          <ContactForm
+            formSubmit={
+              !this.state.contactRow.id ? this.addContact : this.editContact
+            }
+            contacts={this.state.contacts}
+            buttonText={
+              !this.state.contactRow.id ? 'Add contact' : 'Edit contact'
+            }
+            setEdit={this.state.contactRow}
+          />
         </Box>
       </Container>
     );
