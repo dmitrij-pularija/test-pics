@@ -129,14 +129,13 @@ class ContactForm extends Component {
         number: PropTypes.string.isRequired,
       })
     ).isRequired,
-    setEdit: PropTypes.objectOf(
-      PropTypes.shape({
+
+    setEdit: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         number: PropTypes.string.isRequired,
-      })
-    ),
+      }).isRequired
   };
-}
+};
 
 export default ContactForm;

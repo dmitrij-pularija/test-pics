@@ -16,7 +16,7 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    contactRow: {},
+    contactRow: { id: '', name: '', number: '' },
   };
 
   setFilter = ({ target: { value } }) => {
@@ -46,7 +46,7 @@ class App extends Component {
       contact => contact.id !== newContact.id
     );
     this.setState(() => ({ contacts: [newContact, ...newContacts] }));
-    this.setState({ contactRow: {} });
+    this.setState({ contactRow: { id: '', name: '', number: '' } });
   };
 
   selectContact = id => {
