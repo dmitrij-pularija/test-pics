@@ -7,7 +7,7 @@ const Filter = ({ value, onFilterChange, onFilterClear }) => {
   return (
     <Box>
       <Search>
-        <Icon src={search} width="10px" />
+        <Icon src={search} width="15px" />
       </Search>
       <Label htmlFor="filter">Find contacts by name</Label>
       <Input
@@ -22,7 +22,7 @@ const Filter = ({ value, onFilterChange, onFilterClear }) => {
           onClick={() => onFilterClear()}
           title="Сlick to clear filter"
         >
-          <Icon src={clear} width="10px" />
+          <Icon src={clear} width="20px" />
         </Clear>
       )}
     </Box>

@@ -7,7 +7,7 @@ const Container = ({ children }) => {
     <Cont>
       <Logo>
         <Icon src={logo} />
-        React Phonebook
+        React
       </Logo>
       <Card>{children}</Card>
     </Cont>

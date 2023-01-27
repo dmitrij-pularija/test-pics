@@ -30,17 +30,18 @@ export const Input = styled.input`
 
 export const Clear = styled.button`
   position: absolute;
-  right: 15px;
-  top: 25px;
+  right: 10px;
+  top: 20px;
   background-color: inherit;
   border: none;
   cursor: pointer;
   margin: 0;
   padding: 0;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
+
   &:focus,
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     fill: red;
   }
 `;
@@ -52,8 +53,8 @@ export const Icon = styled.img`
 
 export const Search = styled.div`
   position: absolute;
-  left: 15px;
-  top: 25px;
+  left: 14px;
+  top: 22px;
   background-color: inherit;
   border: none;
   margin: 0;
