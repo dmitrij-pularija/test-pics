@@ -12,12 +12,13 @@ export const Form = styled.form`
   border: 1px solid #757575;
 
   @media screen and (min-width: 380px) {
-    width: 74%;
+    width: 300px;
     margin: 0 auto 20px auto;
   }
 
   @media screen and (min-width: 480px) {
-    width: 50%;
+    width: 400px;
+    padding: 50px;
     margin: 0 15px 0 0;
   }
 `;
@@ -28,7 +29,7 @@ export const List = styled.ul`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
 `;
 
 export const Item = styled.li`
@@ -38,18 +39,19 @@ export const Item = styled.li`
   align-items: center;
   justify-content: center;
   width: 100%;
+  font-size: 18px;
 `;
 
 export const Label = styled.label`
   width: 100%;
   text-align: left;
   margin-bottom: 2px;
-  font-size: 14px;
+  font-size: 18px;
   color: #757575;
 `;
 
 export const Input = styled.input`
-  padding-left: 18px;
+  padding: 2px 0 2px 25px;
   border: 0;
   outline: 0;
   width: 100%;
@@ -60,6 +62,7 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   padding: 5px 10px;
+  margin-top: 20px;
   cursor: pointer;
   border-radius: 5px;
   background-color: #f5f4fa;
@@ -79,7 +82,7 @@ export const Button = styled.button`
 
 export const Avatar = styled.img`
   display: flex;
-  width: 122px;
+  width: 200px;
   object-position: 0 10px;
   object-fit: cover;
   border: none;
@@ -96,7 +99,7 @@ export const Icon = styled.img`
 export const IconBox = styled.div`
   position: absolute;
   left: 0;
-  top: 20px;
+  top: 25px;
   background-color: inherit;
   border: none;
   margin: 0;

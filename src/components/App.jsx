@@ -1,11 +1,12 @@
 import { Component } from 'react';
 import book from '../img/book.svg';
+import Modal from './Modal/Modal';
 import Filter from './Filter/Filter';
 import Container from './Container/Container';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Notification from './Notification/Notification';
-import { Box, List, Icon, Title, Blue } from './App.styled';
+import { List, Icon, Title, Blue } from './App.styled';
 
 class App extends Component {
   state = {
@@ -15,8 +16,9 @@ class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    filter: '',
     contactRow: { id: '', name: '', number: '' },
+    modalShow: false,
+    filter: '',
   };
 
   componentDidMount() {
@@ -43,6 +45,7 @@ class App extends Component {
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
+    this.modalToggle();
   };
 
   delContact = id => {
@@ -58,11 +61,13 @@ class App extends Component {
     );
     this.setState(() => ({ contacts: [newContact, ...newContacts] }));
     this.setState({ contactRow: { id: '', name: '', number: '' } });
+    this.modalToggle();
   };
 
   selectContact = id => {
     const editDetals = this.state.contacts.find(contact => contact.id === id);
     this.setState({ contactRow: editDetals });
+    this.modalToggle();
   };
 
   filterContacts = () => {
@@ -83,7 +88,15 @@ class App extends Component {
     }
   };
 
+  modalToggle = () => {
+    document.querySelector('body').classList.toggle('no-scroll');
+    this.setState(({ modalShow }) => ({
+      modalShow: !modalShow,
+    }));
+  };
+
   render() {
+    const { filter, contacts, contactRow, modalShow } = this.state;
     const contactFiltred = this.filterContacts();
     return (
       <Container>
@@ -91,34 +104,33 @@ class App extends Component {
           <Icon src={book} width="20px" />
           Phone<Blue>book</Blue>
         </Title>
-        <Box>
-          <List>
-            <Filter
-              value={this.state.filter}
-              onFilterChange={this.setFilter}
-              onFilterClear={this.clearFilter}
-            />
-            {contactFiltred.length > 0 ? (
-              <ContactList
-                contacts={contactFiltred}
-                onDelete={this.delContact}
-                onEdit={this.selectContact}
-              />
-            ) : (
-              <Notification message="contacts not found" />
-            )}
-          </List>
-          <ContactForm
-            formSubmit={
-              !this.state.contactRow.id ? this.addContact : this.editContact
-            }
-            contacts={this.state.contacts}
-            buttonText={
-              !this.state.contactRow.id ? 'Add contact' : 'Edit contact'
-            }
-            setEdit={this.state.contactRow}
+        <List>
+          <Filter
+            value={filter}
+            onAdd={this.modalToggle}
+            onFilterChange={this.setFilter}
+            onFilterClear={this.clearFilter}
           />
-        </Box>
+          {contactFiltred.length > 0 ? (
+            <ContactList
+              contacts={contactFiltred}
+              onDelete={this.delContact}
+              onEdit={this.selectContact}
+            />
+          ) : (
+            <Notification message="contacts not found" />
+          )}
+        </List>
+        {modalShow && (
+          <Modal onClose={this.modalToggle}>
+            <ContactForm
+              formSubmit={!contactRow.id ? this.addContact : this.editContact}
+              contacts={contacts}
+              buttonText={!contactRow.id ? 'Add contact' : 'Edit contact'}
+              setEdit={contactRow}
+            />
+          </Modal>
+        )}
       </Container>
     );
   }

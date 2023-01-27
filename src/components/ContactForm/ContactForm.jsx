@@ -24,6 +24,11 @@ class ContactForm extends Component {
     number: '',
   };
 
+  componentDidMount() {
+    const { id, name, number } = this.props.setEdit;
+    this.setState({ id, name, number });
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const { formSubmit } = this.props;
@@ -48,28 +53,7 @@ class ContactForm extends Component {
 
   handleChange = event => {
     const { name, value } = event.currentTarget;
-
     this.setState({ [name]: value });
-
-    if (!this.state.id && this.props.setEdit.id && name === 'number') {
-      this.setState({
-        id: this.props.setEdit.id,
-        name: this.props.setEdit.name,
-      });
-    }
-
-    if (!this.state.id && this.props.setEdit.id && name === 'name') {
-      this.setState({
-        id: this.props.setEdit.id,
-        number: this.props.setEdit.number,
-      });
-    }
-  };
-
-  value = name => {
-    if (!this.state.id && this.props.setEdit.id) {
-      return this.props.setEdit[name];
-    } else return this.state[name];
   };
 
   reset = () => {
@@ -77,19 +61,20 @@ class ContactForm extends Component {
   };
 
   render() {
+    const { name, number } = this.state;
     return (
       <Form autoComplete="off" onSubmit={this.handleSubmit}>
         <Avatar src={avatar} alt="User avatar" />
         <List>
           <Item>
             <IconBox>
-              <Icon src={user} width="15px" />
+              <Icon src={user} width="17px" />
             </IconBox>
             <Label htmlFor="name">Name</Label>
             <Input
               type="text"
               name="name"
-              value={this.value('name')}
+              value={name}
               onChange={this.handleChange}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -98,13 +83,13 @@ class ContactForm extends Component {
           </Item>
           <Item>
             <IconBox>
-              <Icon src={phone} width="15px" />
+              <Icon src={phone} width="17px" />
             </IconBox>
             <Label htmlFor="number">Number</Label>
             <Input
               type="tel"
               name="number"
-              value={this.value('number')}
+              value={number}
               onChange={this.handleChange}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -131,11 +116,11 @@ class ContactForm extends Component {
     ).isRequired,
 
     setEdit: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      }).isRequired
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired,
   };
-};
+}
 
 export default ContactForm;
