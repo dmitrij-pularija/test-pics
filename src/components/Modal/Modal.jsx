@@ -1,39 +1,41 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { Overlay, Mod } from './Modal.styled';
+import { useEffect } from 'react';
+import clear from '../../img/clear.svg';
+import { Overlay, Mod, Close, IconClose } from './Modal.styled';
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.closeEsc);
-  }
+const Modal = ({ onClose, children }) => {
+  useEffect(() => {
+    const closeEsc = event => {
+      if (event.code === 'Escape') {
+        event.preventDefault();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', closeEsc);
+    return () => {
+      window.removeEventListener('keydown', closeEsc);
+    };
+  }, [onClose]);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.closeEsc);
-  }
-
-  closeEsc = event => {
-    if (event.code === 'Escape') {
-      event.preventDefault();
-      this.props.onClose();
-    }
+  const handleClick = event => {
+    if (event.currentTarget === event.target) onClose();
   };
 
-  handleClick = event => {
-    if (event.currentTarget === event.target) this.props.onClose();
-  };
+  return (
+    <Overlay onClick={handleClick}>
+      <Mod>
+        {children}
+        <Close onClick={onClose} title="Сlick to close">
+          <IconClose src={clear} width="25px" />
+        </Close>
+      </Mod>
+    </Overlay>
+  );
+};
 
-  render() {
-    return (
-      <Overlay onClick={this.handleClick}>
-        <Mod>{this.props.children}</Mod>
-      </Overlay>
-    );
-  }
-
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
-  };
-}
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default Modal;

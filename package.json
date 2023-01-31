@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-03-phonebook",
+  "name": "goit-react-hw-04-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-03-phonebook/",
+  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-04-phonebook/",
   "dependencies": {
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6",

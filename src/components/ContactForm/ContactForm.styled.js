@@ -17,9 +17,9 @@ export const Form = styled.form`
   }
 
   @media screen and (min-width: 480px) {
-    width: 400px;
+    width: 450px;
     padding: 50px;
-    margin: 0 15px 0 0;
+    // margin: 0 15px 0 0;
   }
 `;
 
