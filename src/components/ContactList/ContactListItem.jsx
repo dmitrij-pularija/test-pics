@@ -1,32 +1,21 @@
 import PropTypes from 'prop-types';
-import del from '../../img/del.svg';
-import user from '../../img/user.svg';
-import {
-  Item,
-  Name,
-  Number,
-  Del,
-  Icon,
-  User,
-  Select,
-} from './ContactList.styled';
+import { ReactComponent as IconDel } from '../../img/del.svg';
+import { ReactComponent as IconUser } from '../../img/user.svg';
+import { Item, Name, Number, Del, User, Select } from './ContactList.styled';
 
-const ContactListItem = ({ name, number, onDelete, onEdit, id }) => {
+const ContactListItem = ({ id, name, number, onDelete, onEdit }) => {
+  
   return (
     <Item>
       <Select onClick={() => onEdit(id)} title="Сlick to edit">
         <User>
-          <Icon src={user} width="15px" />
+          <IconUser fill="currentColor" width="15px" height="15px" />
         </User>
         <Name>{name}</Name>
         <Number>{number}</Number>
       </Select>
-      <Del
-        aria-label="Delete contact"
-        onClick={() => onDelete(id)}
-        title="Сlick to delete"
-      >
-        <Icon src={del} width="15px" />
+      <Del onClick={() => onDelete(id)} title="Сlick to delete">
+        <IconDel fill="currentColor" width="15px" height="15px" />
       </Del>
     </Item>
   );

@@ -7,14 +7,6 @@ export const List = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 20px auto 0 auto;
-
-  // @media screen and (min-width: 380px) {
-  //   width: 80%;
-  // }
-
-  // @media screen and (min-width: 480px) {
-  //   width: 50%;
-  // }
 `;
 
 export const Icon = styled.img`

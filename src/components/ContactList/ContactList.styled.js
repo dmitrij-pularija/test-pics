@@ -38,7 +38,7 @@ export const Name = styled.p`
   width: 50%;
   display: flex;
   font-size: 16px;
-  color: #757575;
+  color: currentColor;
 `;
 
 export const Number = styled.p`
@@ -46,7 +46,7 @@ export const Number = styled.p`
   display: flex;
   padding-left: 2px;
   font-size: 16px;
-  color: #757575;
+  color: currentColor;
   hyphens: auto;
 `;
 
@@ -56,13 +56,14 @@ export const Del = styled.button`
   cursor: pointer;
   margin: 0;
   padding: 9px 10px 11px 10px;
-  }
-`;
+  color: #757575;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
-export const Icon = styled.img`
-  pointer-events: none;
-  fill: currentColor;
-  margin-bottom: -1px;
+  &:focus,
+  &:hover {
+    transform: scale(1.1);
+    color: #f32013;
+  }
 `;
 
 export const User = styled.div`
@@ -74,7 +75,7 @@ export const User = styled.div`
   overflow: hidden;
   margin: 0 10px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid currentColor;
 `;
 
 export const Select = styled.div`
@@ -83,4 +84,9 @@ export const Select = styled.div`
   cursor: pointer;
   align-items: center;
   justify-content: flex-start;
+  color: #757575;
+
+  &:focus,
+  &:hover {
+    color: #3575f5;
 `;

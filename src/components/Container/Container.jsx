@@ -1,14 +1,9 @@
 import PropTypes from 'prop-types';
-import { Cont, Card, Logo, Icon } from './Container.styled';
-import logo from '../../img/logo.svg';
+import { Cont, Card } from './Container.styled';
 
 const Container = ({ children }) => {
   return (
     <Cont>
-      <Logo>
-        <Icon src={logo} />
-        React
-      </Logo>
       <Card>{children}</Card>
     </Cont>
   );

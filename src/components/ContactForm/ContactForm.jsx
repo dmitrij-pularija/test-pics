@@ -1,12 +1,16 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { Formik } from 'formik';
 import avatar from '../../img/avatar.png';
-import user from '../../img/user.svg';
-import phone from '../../img/phone.svg';
+import { modalState } from '../../redux/modalSlice';
+import { initialValues } from '../../redux/constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectContact } from '../../redux/selectSlice';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import { ReactComponent as IconUser } from '../../img/user.svg';
+import { ReactComponent as IconPhone } from '../../img/phone.svg';
+import { addContact, editContact } from '../../redux/contactSlice';
 import {
-  Form,
+  Forma,
   Label,
   Input,
   Button,
@@ -14,31 +18,44 @@ import {
   Item,
   Avatar,
   IconBox,
-  Icon,
 } from './ContactForm.styled';
 
-const ContactForm = ({ formSubmit, buttonText, contacts, contactRow }) => {
-  const [state, setState] = useState({ id: '', name: '', number: '' });
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const selectID = useSelector(state => state.selectID);
+  const contacts = useSelector(state => state.contacts);
+  const closeModal = () => dispatch(modalState());
 
-  useEffect(() => {
-    setState({ ...contactRow });
-  }, [contactRow]);
+  const initialState = () => {
+    if (selectID) {
+      const selectedContact = contacts.find(contact => contact.id === selectID);
+      return selectedContact;
+    } else {
+      return initialValues;
+    }
+  };
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = ({ name, number }, { resetForm }) => {
     const dublName = contacts.find(
       contact => contact.name.toUpperCase() === name.toUpperCase()
     );
     const dublNumber = contacts.find(contact => contact.number === number);
     if (messageDubl(dublName, name)) return;
     if (messageDubl(dublNumber, number)) return;
-    const newContact = { id: !id ? nanoid() : id, name, number };
-    formSubmit(newContact);
-    reset();
+    if (selectID) {
+      const newContact = { id: selectID, name, number };
+      dispatch(editContact(newContact));
+      dispatch(selectContact(''));
+    } else {
+      const newContact = { id: nanoid(), name, number };
+      dispatch(addContact(newContact));
+    }
+    resetForm();
+    closeModal();
   };
 
   const messageDubl = (dubl, field) => {
-    if (dubl && dubl.id !== contactRow.id) {
+    if (dubl && dubl.id !== selectID) {
       Report.warning(
         `${field}`,
         'This Number is already in the contact list.',
@@ -48,72 +65,46 @@ const ContactForm = ({ formSubmit, buttonText, contacts, contactRow }) => {
     } else return false;
   };
 
-  const handleChange = ({ target: { name, value } }) =>
-    setState(prevState => {
-      return { ...prevState, [name]: value };
-    });
-
-  const reset = () => setState({ id: '', name: '', number: '' });
-
-  const { id, name, number } = state;
-
   return (
-    <Form autoComplete="off" onSubmit={handleSubmit}>
-      <Avatar src={avatar} alt="User avatar" />
-      <List>
-        <Item>
-          <IconBox>
-            <Icon src={user} width="17px" />
-          </IconBox>
-          <Label htmlFor="name">Name</Label>
-          <Input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </Item>
-        <Item>
-          <IconBox>
-            <Icon src={phone} width="17px" />
-          </IconBox>
-          <Label htmlFor="number">Number</Label>
-          <Input
-            type="tel"
-            name="number"
-            value={number}
-            onChange={handleChange}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </Item>
-        <Item>
-          <Button type="submit">{buttonText}</Button>
-        </Item>
-      </List>
-    </Form>
+    <Formik initialValues={initialState()} onSubmit={handleSubmit}>
+      <Forma autoComplete="off">
+        <Avatar src={avatar} alt="User avatar" />
+        <List>
+          <Item>
+            <IconBox>
+              <IconUser fill="currentColor" width="20px" height="20px" />
+            </IconBox>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+            />
+          </Item>
+          <Item>
+            <IconBox>
+              <IconPhone fill="currentColor" width="20px" height="20px" />
+            </IconBox>
+            <Label htmlFor="number">Number</Label>
+            <Input
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+            />
+          </Item>
+          <Item>
+            <Button type="submit">
+              {!selectID ? 'Add contact' : 'Edit contact'}
+            </Button>
+          </Item>
+        </List>
+      </Forma>
+    </Formik>
   );
-};
-
-ContactForm.propTypes = {
-  formSubmit: PropTypes.func.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  contactRow: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ContactForm;

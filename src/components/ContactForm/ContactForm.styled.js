@@ -1,6 +1,7 @@
+import { Form, Field } from 'formik';
 import styled from 'styled-components';
 
-export const Form = styled.form`
+export const Forma = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +20,6 @@ export const Form = styled.form`
   @media screen and (min-width: 480px) {
     width: 450px;
     padding: 50px;
-    // margin: 0 15px 0 0;
   }
 `;
 
@@ -40,6 +40,11 @@ export const Item = styled.li`
   justify-content: center;
   width: 100%;
   font-size: 18px;
+  color: #757575;
+
+  &:focus,
+  &:hover {
+    color: #3575f5;
 `;
 
 export const Label = styled.label`
@@ -50,7 +55,7 @@ export const Label = styled.label`
   color: #757575;
 `;
 
-export const Input = styled.input`
+export const Input = styled(Field)`
   padding: 2px 0 2px 25px;
   border: 0;
   outline: 0;
@@ -58,6 +63,10 @@ export const Input = styled.input`
   color: #757575;
   background-color: inherit;
   border-bottom: 1px solid #757575;
+
+  &:focus,
+  &:hover {
+    border-bottom: 1px solid #3575f5;
 `;
 
 export const Button = styled.button`
@@ -91,12 +100,9 @@ export const Avatar = styled.img`
   margin: 20px auto;
 `;
 
-export const Icon = styled.img`
-  pointer-events: none;
-  fill: currentColor;
-`;
-
 export const IconBox = styled.div`
+  width: 20px;
+  height: 20px;
   position: absolute;
   left: 0;
   top: 25px;

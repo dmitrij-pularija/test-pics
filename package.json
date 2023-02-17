@@ -1,15 +1,20 @@
 {
-  "name": "goit-react-hw-04-phonebook",
+  "name": "goit-react-hw-06-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-04-phonebook/",
+  "homepage": "https://dmitrij-pularija.github.io/goit-react-hw-06-phonebook/",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
+    "formik": "^2.2.9",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.3"
   },

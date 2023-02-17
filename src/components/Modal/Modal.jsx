@@ -1,32 +1,23 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import clear from '../../img/clear.svg';
-import { Overlay, Mod, Close, IconClose } from './Modal.styled';
+import { useDispatch } from 'react-redux';
+import { modalState } from '../../redux/modalSlice';
+import { selectContact } from '../../redux/selectSlice';
+import { ReactComponent as IconClose } from '../../img/clear.svg';
+import { Overlay, Mod, Close } from './Modal.styled';
 
-const Modal = ({ onClose, children }) => {
-  useEffect(() => {
-    const closeEsc = event => {
-      if (event.code === 'Escape') {
-        event.preventDefault();
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', closeEsc);
-    return () => {
-      window.removeEventListener('keydown', closeEsc);
-    };
-  }, [onClose]);
-
-  const handleClick = event => {
-    if (event.currentTarget === event.target) onClose();
+const Modal = ({ children }) => {
+  const dispatch = useDispatch();
+  const closeModal = () => {
+    dispatch(selectContact(''));
+    dispatch(modalState());
   };
 
   return (
-    <Overlay onClick={handleClick}>
+    <Overlay>
       <Mod>
         {children}
-        <Close onClick={onClose} title="Сlick to close">
-          <IconClose src={clear} width="25px" />
+        <Close onClick={closeModal} title="Сlick to close">
+          <IconClose stroke="currentColor" />
         </Close>
       </Mod>
     </Overlay>
@@ -34,7 +25,6 @@ const Modal = ({ onClose, children }) => {
 };
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 

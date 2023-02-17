@@ -1,58 +1,58 @@
-import PropTypes from 'prop-types';
-import add from '../../img/add.svg';
-import clear from '../../img/clear.svg';
-import search from '../../img/search.svg';
+import { setFilter } from '../../redux/filterSlice';
+import { modalState } from '../../redux/modalSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { ReactComponent as IconClear } from '../../img/clear.svg';
+import { ReactComponent as IconSearch } from '../../img/search.svg';
+import { ReactComponent as IconAdd } from '../../img/add.svg';
 import {
   Box,
   Input,
   Label,
   Clear,
   Search,
-  Icon,
   Add,
   InputField,
 } from './Filter.styled';
 
-const Filter = ({ value, onFilterChange, onFilterClear, onAdd }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(state => state.filter);
+  const changeFilter = ({ target: { value } }) => dispatch(setFilter(value));
+  const clearFilter = () => dispatch(setFilter(''));
+  const openModal = () => dispatch(modalState());
+
   return (
     <Box>
       <Search>
-        <Icon src={search} width="20px" />
+        <IconSearch stroke="currentColor" />
       </Search>
-      <Label htmlFor="filter">Find contacts by name</Label>
+      <Label htmlFor="filter">Find contacts by name or number</Label>
       <InputField>
         <Input
           name="filter"
           type="filter"
-          value={value}
-          onChange={event => onFilterChange(event)}
+          value={filter}
+          onChange={event => changeFilter(event)}
         />
-        {value && (
+        {filter && (
           <Clear
             type="button"
-            onClick={() => onFilterClear()}
+            onClick={() => clearFilter()}
             title="Сlick to clear filter"
           >
-            <Icon src={clear} width="30px" />
+            <IconClear stroke="currentColor" />
           </Clear>
         )}
         <Add
           type="button"
-          onClick={() => onAdd()}
+          onClick={() => openModal()}
           title="Сlick to add new contact"
         >
-          <Icon src={add} width="30px" />
+          <IconAdd fill="currentColor" />
         </Add>
       </InputField>
     </Box>
   );
-};
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-  onFilterClear: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
 };
 
 export default Filter;
