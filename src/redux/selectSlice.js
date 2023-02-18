@@ -9,5 +9,5 @@ const selectSlice = createSlice({
   },
 });
 
-export const { selectContact } = selectSlice.actions;
 export const selectReducer = selectSlice.reducer;
+export const { selectContact } = selectSlice.actions;

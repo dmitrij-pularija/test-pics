@@ -8,5 +8,5 @@ const modalSlice = createSlice({
   },
 });
 
-export const { modalState } = modalSlice.actions;
 export const modalReducer = modalSlice.reducer;
+export const { modalState } = modalSlice.actions;
