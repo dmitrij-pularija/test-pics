@@ -8,7 +8,7 @@ export const List = styled.ul`
   padding: 10px;
 
   @media screen and (min-width: 480px) {
-    height: 345px;
+    height: 365px;
   }
 `;
 
@@ -17,7 +17,6 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 2px;
   border-radius: 3px;
   background-color: #ffffff;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
@@ -51,11 +50,12 @@ export const Number = styled.p`
 `;
 
 export const Del = styled.button`
-  background-color: inherit;
+  height: 100%;
   border: none;
   cursor: pointer;
   margin: 0;
-  padding: 9px 10px 11px 10px;
+  padding: 8px;
+  background-color: inherit;
   color: #757575;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
@@ -80,10 +80,12 @@ export const User = styled.div`
 
 export const Select = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   cursor: pointer;
   align-items: center;
   justify-content: flex-start;
+  padding: 10px 0;
   color: #757575;
 
   &:focus,

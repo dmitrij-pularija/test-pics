@@ -5,10 +5,11 @@ import Filter from './Filter/Filter';
 import Container from './Container/Container';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
+import { selectModalState } from '../redux/selectors';
 import { List, Icon, Title, Blue } from './App.styled';
 
 const App = () => {
-  const modalShow = useSelector(state => state.modalShow);
+  const modalShow = useSelector(selectModalState);
 
   return (
     <Container>

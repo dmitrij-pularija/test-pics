@@ -1,52 +1,61 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactListItem from './ContactListItem';
-import { delContact } from '../../redux/contactSlice';
-import { selectContact } from '../../redux/selectSlice';
-import { modalState } from '../../redux/modalSlice';
+import Loader from '../Loader/Loader';
+import { getContacts, delContact } from '../../redux/operations';
+import { modalState, selectContact } from '../../redux/statusSlice';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import {
+  selectError,
+  selectIsLoading,
+  filterContacts,
+} from '../../redux/selectors';
 import { List } from './ContactList.styled';
 import Notification from '../Notification/Notification';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter);
-  const contacts = useSelector(state => state.contacts);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(getContacts());
+    if (error) {
+      Report.failure('Something went wrong!', `${error}`, 'OK');
+    }
+  }, [dispatch, error]);
+
   const deleteContact = id => dispatch(delContact(id));
   const editContact = id => {
     dispatch(selectContact(id));
     dispatch(modalState());
   };
+  const isLoading = useSelector(selectIsLoading);
+  const contactFiltred = useSelector(filterContacts);
 
-  const filterContacts = () => {
-    const filtredContacts = contacts.filter(
-      contact =>
-        contact.name.toUpperCase().includes(filter.toUpperCase()) ||
-        contact.number.includes(filter)
-    );
-    return filtredContacts.sort((firstСontacts, secondСontacts) =>
-      firstСontacts.name.localeCompare(secondСontacts.name)
-    );
-  };
-
-  const contactFiltred = filterContacts();
   return (
-    <>
-      {contactFiltred.length > 0 ? (
-        <List>
-          {contactFiltred.map(({ id, name, number }) => (
+    <List>
+      {isLoading && <Loader />}
+      {contactFiltred.length && !isLoading
+        ? contactFiltred.map(({ id, name, phone }) => (
             <ContactListItem
               key={id}
               id={id}
               name={name}
-              number={number}
+              phone={phone}
               onDelete={deleteContact}
               onEdit={editContact}
             />
-          ))}
-        </List>
-      ) : (
-        <Notification message="contacts not found" />
-      )}
-    </>
+          ))
+        : !isLoading && (
+            <Notification
+              message={
+                error
+                  ? 'Something went wrong, please try again.'
+                  : 'Contacts not found'
+              }
+            />
+          )}
+    </List>
   );
 };
 

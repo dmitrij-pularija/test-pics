@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { modalState } from '../../redux/modalSlice';
-import { selectContact } from '../../redux/selectSlice';
+import { modalState, selectContact } from '../../redux/statusSlice';
 import { ReactComponent as IconClose } from '../../img/clear.svg';
 import { Overlay, Mod, Close } from './Modal.styled';
 

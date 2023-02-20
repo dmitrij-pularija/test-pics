@@ -1,14 +1,15 @@
 import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
 import avatar from '../../img/avatar.png';
-import { modalState } from '../../redux/modalSlice';
-import { initialValues } from '../../redux/constants';
+import { initialValues } from '../../redux/initial';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectContact } from '../../redux/selectSlice';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { ReactComponent as IconUser } from '../../img/user.svg';
 import { ReactComponent as IconPhone } from '../../img/phone.svg';
-import { addContact, editContact } from '../../redux/contactSlice';
+import { addContact, editContact } from '../../redux/operations';
+import { modalState, selectContact } from '../../redux/statusSlice';
+import { selectContacts, selectContactID } from '../../redux/selectors';
+
 import {
   Forma,
   Label,
@@ -22,8 +23,8 @@ import {
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const selectID = useSelector(state => state.selectID);
-  const contacts = useSelector(state => state.contacts);
+  const selectID = useSelector(selectContactID);
+  const contacts = useSelector(selectContacts);
   const closeModal = () => dispatch(modalState());
 
   const initialState = () => {
@@ -35,19 +36,19 @@ const ContactForm = () => {
     }
   };
 
-  const handleSubmit = ({ name, number }, { resetForm }) => {
+  const handleSubmit = ({ name, phone }, { resetForm }) => {
     const dublName = contacts.find(
       contact => contact.name.toUpperCase() === name.toUpperCase()
     );
-    const dublNumber = contacts.find(contact => contact.number === number);
+    const dublNumber = contacts.find(contact => contact.phone === phone);
     if (messageDubl(dublName, name)) return;
-    if (messageDubl(dublNumber, number)) return;
+    if (messageDubl(dublNumber, phone)) return;
     if (selectID) {
-      const newContact = { id: selectID, name, number };
+      const newContact = { id: selectID, name, phone };
       dispatch(editContact(newContact));
       dispatch(selectContact(''));
     } else {
-      const newContact = { id: nanoid(), name, number };
+      const newContact = { id: nanoid(), name, phone };
       dispatch(addContact(newContact));
     }
     resetForm();
@@ -87,10 +88,10 @@ const ContactForm = () => {
             <IconBox>
               <IconPhone fill="currentColor" width="20px" height="20px" />
             </IconBox>
-            <Label htmlFor="number">Number</Label>
+            <Label htmlFor="phone">Phone</Label>
             <Input
               type="tel"
-              name="number"
+              name="phone"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               required

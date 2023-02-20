@@ -3,7 +3,7 @@ import { ReactComponent as IconDel } from '../../img/del.svg';
 import { ReactComponent as IconUser } from '../../img/user.svg';
 import { Item, Name, Number, Del, User, Select } from './ContactList.styled';
 
-const ContactListItem = ({ id, name, number, onDelete, onEdit }) => {
+const ContactListItem = ({ id, name, phone, onDelete, onEdit }) => {
   
   return (
     <Item>
@@ -12,7 +12,7 @@ const ContactListItem = ({ id, name, number, onDelete, onEdit }) => {
           <IconUser fill="currentColor" width="15px" height="15px" />
         </User>
         <Name>{name}</Name>
-        <Number>{number}</Number>
+        <Number>{phone}</Number>
       </Select>
       <Del onClick={() => onDelete(id)} title="Сlick to delete">
         <IconDel fill="currentColor" width="15px" height="15px" />
@@ -24,7 +24,7 @@ const ContactListItem = ({ id, name, number, onDelete, onEdit }) => {
 ContactListItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
 };
