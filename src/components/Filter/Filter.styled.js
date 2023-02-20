@@ -99,7 +99,7 @@ export const Add = styled.button`
   &:hover {
     transform: scale(1.05);
     color: #ffffff;
-    outline: 1px solid #2196f3;
+    outline: none;
     border: 1px solid #2196f3;
     background-color: #2196f3;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
