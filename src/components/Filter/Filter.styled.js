@@ -19,9 +19,9 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   display: flex;
-  padding: 0 24px;
-  border: 0;
-  outline: 0;
+  padding: 0 15px 0 21px;
+  border: none;
+  outline: none;
   width: 100%;
   font-size: 24px;
   background-color: inherit;
