@@ -9,7 +9,7 @@ import { selectError, selectIsLoading } from '../../redux/contacts/selectors';
 import { filterContacts } from '../../redux/status/selectors';
 // import { selectErrors } from '../../redux/auth/selectors';
 import { List } from './ContactList.styled';
-import { useAuth } from '../../services/hooks';
+// import { useAuth } from '../../services/hooks';
 import Notification from '../Notification/Notification';
 
 const ContactList = () => {
