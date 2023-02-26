@@ -1,32 +1,56 @@
-import { useSelector } from 'react-redux';
-import book from '../img/book.svg';
-import Modal from './Modal/Modal';
-import Filter from './Filter/Filter';
-import Container from './Container/Container';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import { selectModalState } from '../redux/selectors';
-import { List, Icon, Title, Blue } from './App.styled';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import RestrictedRoute from './RestrictedRoute';
+import { refreshUser } from '../redux/auth/operations';
+import SharedLayout from './SharedLayout/SharedLayout';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 const App = () => {
-  const modalShow = useSelector(selectModalState);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   return (
-    <Container>
-      <Title>
-        <Icon src={book} width="20px" />
-        Phone<Blue>book</Blue>
-      </Title>
-      <List>
-        <Filter />
-        <ContactList />
-      </List>
-      {modalShow && (
-        <Modal>
-          <ContactForm />
-        </Modal>
-      )}
-    </Container>
+    <BrowserRouter basename="/goit-react-hw-08-phonebook">
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<RegisterPage />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<LoginPage />}
+              />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

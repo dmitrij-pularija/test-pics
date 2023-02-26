@@ -1,6 +1,6 @@
-import { modalState, setFilter } from '../../redux/statusSlice';
+import { modalState, setFilter } from '../../redux/status/slice';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from '../../redux/selectors';
+import { selectFilter } from '../../redux/status/selectors';
 import { ReactComponent as IconClear } from '../../img/clear.svg';
 import { ReactComponent as IconSearch } from '../../img/search.svg';
 import { ReactComponent as IconAdd } from '../../img/add.svg';
@@ -17,13 +17,14 @@ const Filter = () => {
     <Box>
       <InputField>
         <Search>
-          <IconSearch stroke="currentColor" />
+          <IconSearch stroke="currentColor" width="20px" height="20px" />
         </Search>
         <Input
           name="filter"
           type="filter"
           value={filter}
-          placeholder="Find contacts by name or number"
+          autoComplete="off"
+          placeholder="Find contacts"
           onChange={event => changeFilter(event)}
         />
         {filter && (
@@ -32,17 +33,16 @@ const Filter = () => {
             onClick={() => clearFilter()}
             title="Сlick to clear filter"
           >
-            <IconClear stroke="currentColor" />
+            <IconClear stroke="currentColor"  width="30px" height="30px" />
           </Clear>
         )}
       </InputField>
       <Add
         type="button"
-        autoFocus
         onClick={() => openModal()}
         title="Сlick to add new contact"
       >
-        <IconAdd fill="currentColor" />
+        <IconAdd fill="currentColor"  width="25px" height="25px" />
       </Add>
     </Box>
   );

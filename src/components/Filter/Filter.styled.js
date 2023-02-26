@@ -7,7 +7,7 @@ export const Box = styled.div`
   width: 100%;
   padding: 0 10px;
   font-size: 22px;
-  gap: 15px;
+  gap: 2px;
 `;
 
 export const Label = styled.label`
@@ -39,8 +39,8 @@ export const Input = styled.input`
 `;
 
 export const Clear = styled.button`
-  width: 30px;
-  height: 30px;
+  // width: 30px;
+  // height: 30px;
   position: absolute;
   right: -7px;
   display: flex;
@@ -63,11 +63,11 @@ export const Clear = styled.button`
 `;
 
 export const Search = styled.div`
-  width: 20px;
-  height: 20px;
+  // width: 10px;
+  // height: 10px;
   position: absolute;
-  bottom: 6px;
-  left: -1px;
+  // bottom: 17px;
+  // left: -1px;
   background-color: inherit;
   border: none;
   margin: 0;
@@ -79,7 +79,6 @@ export const Search = styled.div`
   transform: scale(1.3);
   color: #3575f5;
 }
-  }
 `;
 
 export const Add = styled.button`
@@ -89,9 +88,15 @@ export const Add = styled.button`
   background-color: inherit;
   cursor: pointer;
   margin: 0;
-  padding: 6px 4px 2px 4px;
-  border-radius: 5px;
-  border: 1px solid #757575;
+  padding: 3px;
+  border: none;
+
+
+  // padding: 6px 4px 2px 4px;
+  // border-radius: 5px;
+  // border-radius: 50%;
+
+  // border: 1px solid #757575;
   color: #757575;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
@@ -100,7 +105,8 @@ export const Add = styled.button`
     transform: scale(1.05);
     color: #ffffff;
     outline: none;
-    border: 1px solid #2196f3;
+  border-radius: 5px;
+    // border: 1px solid #2196f3;
     background-color: #2196f3;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
       0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);

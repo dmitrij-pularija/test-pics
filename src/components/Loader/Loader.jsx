@@ -1,6 +1,7 @@
-import PuffLoader from 'react-spinners/PuffLoader';
+// import PuffLoader from 'react-spinners/PuffLoader';
+import { PuffLoader , ClipLoader } from 'react-spinners';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <PuffLoader
       color={'#36d7b7'}
@@ -10,6 +11,16 @@ const Loader = () => {
       aria-label="Loading Spinner"
       data-testid="loader"
     />
+  );
+};
+
+export const LoaderSmall = () => {
+  return (
+<ClipLoader
+  color="#36d7b7"
+  size={15}
+  speedMultiplier={1}
+/>
   );
 };
 

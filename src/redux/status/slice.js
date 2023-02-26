@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { initialStatus } from './initial';
+import { initialStatus } from '../../services/initial';
 
 const statusSlice = createSlice({
   name: 'status',

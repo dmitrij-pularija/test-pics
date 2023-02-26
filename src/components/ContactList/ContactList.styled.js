@@ -67,15 +67,15 @@ export const Del = styled.button`
 `;
 
 export const User = styled.div`
-  width: 15px;
-  height: 15px;
+  // width: 15px;
+  // height: 15px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   margin: 0 10px;
   border-radius: 50%;
-  border: 1px solid currentColor;
+  // border: 1px solid currentColor;
 `;
 
 export const Select = styled.div`
