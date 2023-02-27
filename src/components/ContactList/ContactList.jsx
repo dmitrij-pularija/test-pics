@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactListItem from './ContactListItem';
-import Loader from '../Loader/Loader';
+import { Loader}  from '../Loader/Loader';
 import { getContacts, delContact } from '../../redux/contacts/operations';
 import { modalState, selectContact } from '../../redux/status/slice';
 // import { Report } from 'notiflix/build/notiflix-report-aio';
@@ -19,12 +19,12 @@ const ContactList = () => {
   // const  isLoggedIn  = useAuth();
 
 
-  useEffect(() => {
-    dispatch(getContacts());
-  //   if (error) {
-  //     Report.failure('Something went wrong!', `${error}`, 'OK');
-  //   }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getContacts());
+  // //   if (error) {
+  // //     Report.failure('Something went wrong!', `${error}`, 'OK');
+  // //   }
+  // }, [dispatch]);
 
   const deleteContact = id => dispatch(delContact(id));
   // const deleteContact = id => {

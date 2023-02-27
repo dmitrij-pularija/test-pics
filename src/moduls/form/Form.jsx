@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import { LoaderSmall } from '../../components/Loader/Loader';
-import { selectIsLoadings, selectErrors } from '../../redux/auth/selectors';
-import { selectIsLoading, selectError } from '../../redux/contacts/selectors';
+// import { selectIsLoadings, selectErrors } from '../../redux/auth/selectors';
+import { selectIsFulfilled, selectIsLoading, selectError } from '../../redux/contacts/selectors';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import avatar from '../../img/avatar.png';
 import { ReactComponent as IconShow } from '../../img/show.svg';
 import { ReactComponent as IconHide } from '../../img/hide.svg';
+import { ReactComponent as IconCheck } from '../../img/check.svg';
 import { ReactComponent as IconAdd } from '../../img/add.svg';
 import { ReactComponent as IconEdit } from '../../img/edit.svg';
 import { ReactComponent as IconLogin } from '../../img/login.svg';
@@ -33,24 +35,26 @@ const Form = ({ initialState, onSubmit, mode }) => {
   const [showPassword, setShowPassword] = useState(false);
   let buttonText = '';
   let ButtonIcon = '';
-  let PasswordIcon = IconHide;
+  // let PasswordIcon = IconHide;
   let items = [];
   if (mode === 'add') {ButtonIcon = IconAdd; buttonText = 'Add contact'; items = contactItems;};
   if (mode === 'edit') {ButtonIcon = IconEdit; buttonText = 'Edit contact'; items = contactItems;};
   if (mode === 'SignUp') {ButtonIcon = IconRegister; buttonText = 'Sign Up'; items = signUpItems;};
   if (mode === 'SignIn') {ButtonIcon = IconLogin; buttonText = 'Sign In'; items = signInItems;};
   const isLoading = useSelector(selectIsLoading);
-  const isLoadings = useSelector(selectIsLoadings);
-  const errors = useSelector(selectErrors);
+  const isFulfilled = useSelector(selectIsFulfilled);
+
+  // const isLoadings = useSelector(selectIsLoadings);
+  // const errors = useSelector(selectErrors);
   const error = useSelector(selectError);
-  const loading = (isLoading || isLoadings) ? true : false;
+  // const loading = (isLoading || isLoadings) ? true : false;
 const chengShowPassword = () => setShowPassword(!showPassword);
-PasswordIcon = showPassword ? IconShow : IconHide ;
+let PasswordIcon = showPassword ? IconShow : IconHide ;
 
   useEffect(() => {
-    errors && Report.failure('Error:', `${errors}`, 'OK');
+    // errors && Report.failure('Error:', `${errors}`, 'OK');
     error && Report.failure('Error:', `${error}`, 'OK');
-  }, [errors, error])
+  }, [error])
 
   return (
     <Formik initialValues={initialState} onSubmit={onSubmit}>
@@ -71,7 +75,8 @@ PasswordIcon = showPassword ? IconShow : IconHide ;
           </Item>))}          
           <Item key={5}>
             <Button type="submit">
-            {loading ? <LoaderSmall /> :
+            {isLoading ? <LoaderSmall color={'#36d7b7'} /> :
+            isFulfilled ? <IconCheck fill="#36d7b7" width="20px" height="20px" /> :
             <ButtonIcon fill="currentColor" width="20px" height="20px" />}  
             &nbsp;{buttonText}
             </Button>
@@ -80,6 +85,17 @@ PasswordIcon = showPassword ? IconShow : IconHide ;
       </Forma>
     </Formik>
   );
+};
+
+Form.propTypes = {
+  mode: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  initialState: PropTypes.shape({
+      name: PropTypes.string,
+      number: PropTypes.string,
+      email: PropTypes.string,
+      password: PropTypes.string,
+    }).isRequired,
 };
 
 export default Form;

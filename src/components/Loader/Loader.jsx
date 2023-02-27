@@ -1,4 +1,4 @@
-// import PuffLoader from 'react-spinners/PuffLoader';
+import PropTypes from 'prop-types';
 import { PuffLoader , ClipLoader } from 'react-spinners';
 
 export const Loader = () => {
@@ -14,14 +14,16 @@ export const Loader = () => {
   );
 };
 
-export const LoaderSmall = () => {
+export const LoaderSmall = ({ color }) => {
   return (
 <ClipLoader
-  color="#36d7b7"
+  color={color}
   size={15}
   speedMultiplier={1}
 />
   );
 };
 
-export default Loader;
+LoaderSmall.propTypes = {
+  color: PropTypes.string.isRequired,
+};

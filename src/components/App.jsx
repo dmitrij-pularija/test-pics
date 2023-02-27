@@ -13,7 +13,7 @@ const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 const App = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
@@ -22,7 +22,15 @@ const App = () => {
     <BrowserRouter basename="/goit-react-hw-08-phonebook">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
+          <Route
+            index
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<HomePage />}
+              />
+            }
+          />
           <Route
             path="/contacts"
             element={

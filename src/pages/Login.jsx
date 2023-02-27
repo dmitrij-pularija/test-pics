@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { LoginForm } from '../components/LoginForm/LoginForm';
+import AuthForm from '../components/AuthForm/AuthForm';
 
 const Login = () => {
   return (
     <>
-      <LoginForm />
+      <AuthForm mode={'login'} />
       <Link to="/register">I`m not registered</Link>
     </>
   );

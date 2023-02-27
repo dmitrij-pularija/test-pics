@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 import Notification from 'components/Notification/Notification';
 import { Suspense } from 'react';
-import Loader from '../Loader/Loader';
+import { Loader} from '../Loader/Loader';
 import Container from '../Container/Container';
 // import avatar from '../../img/avatar.png';
 
@@ -67,7 +67,7 @@ const SharedLayout = () => {
   return (
     <Container>
       <Header>
-        <Logo to="/contacts">
+        <Logo to="/">
           <IconBook style={{ fill: "currentColor", width: "23px", marginRight: "5px" }} />
           Phone<BlueText>book</BlueText>
         </Logo>

@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
-import { RegisterForm } from 'components/RegisterForm/RegisterForm';
-
+import AuthForm from 'components/AuthForm/AuthForm';
 
 const Register = () => {
   return (
     <>
-      <RegisterForm />
+      <AuthForm mode={'register'} />
       <Link to="/login">I'm already registered</Link>
     </>
   );
-}
+};
 
 export default Register;

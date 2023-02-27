@@ -37,7 +37,7 @@ export const Header = styled.div`
 
 export const OutletBox = styled.div`
   width: 100%;
-  height: calc( 100% - 36px);
+  height: calc( 100% - 56px);
   display: flex;
   flex-direction: column;
   justify-content: center;
