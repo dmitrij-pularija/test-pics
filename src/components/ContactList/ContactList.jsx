@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import ContactListItem from './ContactListItem';
 import { Loader}  from '../Loader/Loader';
-import { getContacts, delContact } from '../../redux/contacts/operations';
+import { delContact } from '../../redux/contacts/operations';
 import { modalState, selectContact } from '../../redux/status/slice';
 // import { Report } from 'notiflix/build/notiflix-report-aio';
 import { selectError, selectIsLoading } from '../../redux/contacts/selectors';
