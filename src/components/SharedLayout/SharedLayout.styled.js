@@ -31,13 +31,15 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   color: #4a4e7d;
-  padding: 10px;
+  padding: 10px 10px 5px 10px;
 //   margin: 20px auto;
 `;
 
 export const OutletBox = styled.div`
   width: 100%;
-  height: calc( 100% - 56px);
+  // height: 100%;
+
+  height: calc( 100% - 45px);
   display: flex;
   flex-direction: column;
   justify-content: center;

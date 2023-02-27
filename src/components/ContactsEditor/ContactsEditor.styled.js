@@ -25,6 +25,7 @@ export const Container = styled.div`
 
 export const List = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
