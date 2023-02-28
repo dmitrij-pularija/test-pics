@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Modal from '../Modal/Modal';
 import Form from 'moduls/form/Form';
 import Filter from '../Filter/Filter';
@@ -7,27 +6,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Container, List } from './ContactsEditor.styled';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { initialContactForm } from '../../services/initial';
-import { getContacts } from '../../redux/contacts/operations';
 import { resetIsFulfilled } from '../../redux/contacts/slice';
+import { selectContacts } from '../../redux/contacts/selectors';
 import { modalState, selectContact } from '../../redux/status/slice';
 import { addContact, editContact } from '../../redux/contacts/operations';
-import { selectContacts, selectError } from '../../redux/contacts/selectors';
-import { selectContactID, selectModalState } from '../../redux/status/selectors';
+import {
+  selectContactID,
+  selectModalState,
+} from '../../redux/status/selectors';
 
 const ContactsEditor = () => {
   const dispatch = useDispatch();
   const selectID = useSelector(selectContactID);
   const contacts = useSelector(selectContacts);
-  const error = useSelector(selectError);
   const modalShow = useSelector(selectModalState);
-
-  useEffect(() => {
-    dispatch(getContacts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    error && Report.failure('Error:', `${error}`, 'OK');
-  }, [error]);
 
   const initialState = () => {
     if (selectID) {
@@ -66,13 +58,13 @@ const ContactsEditor = () => {
     if (messageDubl(dublName, name, 'name')) return;
     if (messageDubl(dublNumber, number, 'phone nmber')) return;
     if (selectID) {
-      dispatch(editContact({ id: selectID, name, number })).finally(() => 
-      clearForm(resetForm)
+      dispatch(editContact({ id: selectID, name, number })).then(
+        ({ error }) => !error && clearForm(resetForm)
       );
     } else {
-      dispatch(addContact({ name, number })).finally(() => 
-      clearForm(resetForm)
-    );
+      dispatch(addContact({ name, number })).then(
+        ({ error }) => !error && clearForm(resetForm)
+      );
     }
   };
 

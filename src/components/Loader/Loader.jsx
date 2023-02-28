@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { PuffLoader , ClipLoader } from 'react-spinners';
+import { PuffLoader, ClipLoader } from 'react-spinners';
 
 export const Loader = () => {
   return (
@@ -15,13 +15,7 @@ export const Loader = () => {
 };
 
 export const LoaderSmall = ({ color }) => {
-  return (
-<ClipLoader
-  color={color}
-  size={15}
-  speedMultiplier={1}
-/>
-  );
+  return <ClipLoader color={color} size={15} speedMultiplier={1} />;
 };
 
 LoaderSmall.propTypes = {

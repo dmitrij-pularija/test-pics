@@ -8,10 +8,6 @@ export const User = styled.button`
   cursor: pointer;
   margin: 0;
   padding: 3px;
-
-
-  // padding: 6px 4px 2px 4px;
-  // border-radius: 5px;
   border-radius: 50%;
   border: 1px solid #757575;
   color: #757575;
@@ -31,9 +27,7 @@ export const User = styled.button`
 
 export const Item = styled.div`
   width: 220px;
-  // height: calc( 100% - 36px);
   display: flex;
-  // flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 16px;
@@ -41,14 +35,12 @@ export const Item = styled.div`
 `;
 
 export const Button = styled.div`
-
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 18px;
   padding: 10px 0;
   cursor: pointer;
-
 
   &:focus,
   &:hover {
@@ -59,7 +51,6 @@ export const Button = styled.div`
       0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   }
 `;
-
 
 export const Avatar = styled.img`
   display: flex;

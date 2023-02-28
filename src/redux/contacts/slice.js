@@ -1,12 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logOut,logIn, register, refreshUser } from '../auth/operations';
+import { logOut, logIn, register, refreshUser } from '../auth/operations';
 import { initialState } from '../../services/initial';
-import {
-  getContacts,
-  addContact,
-  delContact,
-  editContact,
-} from './operations';
+import { getContacts, addContact, delContact, editContact } from './operations';
 
 const handlePending = state => {
   state.error = null;
@@ -33,6 +28,13 @@ const contactSlice = createSlice({
     [delContact.rejected]: handleRejected,
     [editContact.pending]: handlePending,
     [editContact.rejected]: handleRejected,
+    [logOut.pending]: handlePending,
+    [logIn.pending]: handlePending,
+    [register.pending]: handlePending,
+    [refreshUser.rejected]: handleRejected,
+    [logOut.rejected]: handleRejected,
+    [logIn.rejected]: handleRejected,
+    [register.rejected]: handleRejected,
     [getContacts.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.error = null;
@@ -48,19 +50,11 @@ const contactSlice = createSlice({
       state.isLoading = false;
       state.isFulfilled = true;
       state.error = null;
-      const index = state.contacts.findIndex(
-        contact => contact.id === payload.id
-      );
-      state.contacts.splice(index, 1);
     },
     [editContact.fulfilled](state, { payload }) {
       state.isLoading = false;
       state.isFulfilled = true;
       state.error = null;
-      const index = state.contacts.findIndex(
-        contacts => contacts.id === payload.id
-      );
-      state.contacts.splice(index, 1, payload);
     },
     [logOut.fulfilled](state) {
       state.items = [];
@@ -68,14 +62,6 @@ const contactSlice = createSlice({
       state.isLoading = false;
       state.isFulfilled = false;
     },
-    [logOut.pending]: handlePending,
-    [logIn.pending]: handlePending,
-    [register.pending]: handlePending,
-    [refreshUser.pending]: handlePending,
-    [refreshUser.rejected]: handleRejected,
-    [logOut.rejected]: handleRejected,
-    [logIn.rejected]: handleRejected,
-    [register.rejected]: handleRejected,
   },
   reducers: {
     resetIsFulfilled(state) {
@@ -85,5 +71,4 @@ const contactSlice = createSlice({
 });
 
 export const contactsReducer = contactSlice.reducer;
-
 export const { resetIsFulfilled } = contactSlice.actions;

@@ -9,17 +9,14 @@ export const Container = styled.div`
   border: 1px solid #757575;
   padding: 80px 15px 15px 15px;
 
-
   @media screen and (min-width: 380px) {
     width: 300px;
-  border-radius: 10px;
-
+    border-radius: 10px;
   }
 
   @media screen and (min-width: 530px) {
     height: 500px;
     width: 400px;
-    // padding: 50px;
   }
 `;
 

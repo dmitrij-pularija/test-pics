@@ -5,7 +5,7 @@ import { useAuth } from '../../services/hooks';
 import { logIn, register } from '../../redux/auth/operations';
 import { ReactComponent as IconClose } from '../../img/clear.svg';
 import { initialLoginForm, initialRegisterForm } from '../../services/initial';
-import { Container, Back } from './LoginForm.styled';
+import { Container, Back } from './AuthForm.styled';
 
 const AuthForm = ({ mode }) => {
   const dispatch = useDispatch();

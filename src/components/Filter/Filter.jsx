@@ -33,7 +33,7 @@ const Filter = () => {
             onClick={() => clearFilter()}
             title="Сlick to clear filter"
           >
-            <IconClear stroke="currentColor"  width="30px" height="30px" />
+            <IconClear stroke="currentColor" width="30px" height="30px" />
           </Clear>
         )}
       </InputField>
@@ -42,7 +42,7 @@ const Filter = () => {
         onClick={() => openModal()}
         title="Сlick to add new contact"
       >
-        <IconAdd fill="currentColor"  width="25px" height="25px" />
+        <IconAdd fill="currentColor" width="25px" height="25px" />
       </Add>
     </Box>
   );

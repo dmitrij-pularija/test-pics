@@ -1,67 +1,73 @@
-// import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import ContactListItem from './ContactListItem';
-import { Loader}  from '../Loader/Loader';
-import { delContact } from '../../redux/contacts/operations';
-import { modalState, selectContact } from '../../redux/status/slice';
-// import { Report } from 'notiflix/build/notiflix-report-aio';
-import { selectError, selectIsLoading } from '../../redux/contacts/selectors';
-import { filterContacts } from '../../redux/status/selectors';
-// import { selectErrors } from '../../redux/auth/selectors';
+import { useEffect } from 'react';
+import { Loader } from '../Loader/Loader';
 import { List } from './ContactList.styled';
-// import { useAuth } from '../../services/hooks';
+import ContactListItem from './ContactListItem';
+import { useSelector, useDispatch } from 'react-redux';
 import Notification from '../Notification/Notification';
+import { delContact } from '../../redux/contacts/operations';
+import { resetIsFulfilled } from '../../redux/contacts/slice';
+import { getContacts } from '../../redux/contacts/operations';
+import { modalState, selectContact } from '../../redux/status/slice';
+import { filterContacts, selectContactID } from '../../redux/status/selectors';
+import {
+  selectError,
+  selectIsLoading,
+  selectIsFulfilled,
+} from '../../redux/contacts/selectors';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  // const errors = useSelector(selectErrors);
-  // const  isLoggedIn  = useAuth();
+  const isFulfilled = useSelector(selectIsFulfilled);
+  const isLoading = useSelector(selectIsLoading);
+  const selectID = useSelector(selectContactID);
+  const contactFiltred = useSelector(filterContacts);
 
+  useEffect(() => {
+    !isFulfilled && dispatch(getContacts());
+  }, [dispatch, isFulfilled]);
 
-  // useEffect(() => {
-  //   dispatch(getContacts());
-  // //   if (error) {
-  // //     Report.failure('Something went wrong!', `${error}`, 'OK');
-  // //   }
-  // }, [dispatch]);
+  const deleteContact = id => {
+    dispatch(selectContact(id));
+    dispatch(delContact(id)).finally(() =>
+      setTimeout(() => {
+        dispatch(selectContact(''));
+        dispatch(resetIsFulfilled());
+      }, 800)
+    );
+  };
 
-  const deleteContact = id => dispatch(delContact(id));
-  // const deleteContact = id => {
-  //   dispatch(selectContact(id));
-  //   dispatch(delContact(id));
-  // }
   const editContact = id => {
     dispatch(selectContact(id));
     dispatch(modalState());
   };
-  const isLoading = useSelector(selectIsLoading);
-  // const selectID  = useSelector(selectContactID);
-  const contactFiltred = useSelector(filterContacts);
 
   return (
     <List>
-      {isLoading && <Loader />}
-      {contactFiltred.length && !isLoading
-        ? contactFiltred.map(({ id, name, number }) => (
-            <ContactListItem
-              key={id}
-              id={id}
-              name={name}
-              phone={number}
-              onDelete={deleteContact}
-              onEdit={editContact}
-            />
-          ))
-        : !isLoading && (
-            <Notification
-              message={
-                error
-                  ? 'Something went wrong, please try again.'
-                  : 'Contacts not found'
-              }
-            />
-          )}
+      {isLoading && !selectID ? (
+        <Loader />
+      ) : contactFiltred.length ? (
+        contactFiltred.map(({ id, name, number }) => (
+          <ContactListItem
+            key={id}
+            id={id}
+            name={name}
+            phone={number}
+            onDelete={deleteContact}
+            onEdit={editContact}
+          />
+        ))
+      ) : (
+        !isLoading && (
+          <Notification
+            message={
+              error
+                ? 'Something went wrong, please try again.'
+                : 'Contacts not found'
+            }
+          />
+        )
+      )}
     </List>
   );
 };

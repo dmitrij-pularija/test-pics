@@ -20,8 +20,6 @@ export const initialStatus = {
 export const initialAuth = {
   user: { name: null, email: null },
   token: null,
-  // error: null,
-  // isLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
 };

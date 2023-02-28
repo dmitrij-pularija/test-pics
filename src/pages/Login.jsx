@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm/AuthForm';
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <>
       <AuthForm mode={'login'} />
@@ -10,4 +10,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
