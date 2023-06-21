@@ -1,3 +1,3 @@
-goit-react-hw-08-phonebook
+Test Task
 
-https://dmitrij-pularija.github.io/goit-react-hw-08-phonebook/
+solution https://dmitrij-pularija.github.io/test-pics/
